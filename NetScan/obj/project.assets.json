@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     "net10.0": {
+      "IPNetwork2/4.3.0": {
+        "type": "package",
+        "compile": {
+          "lib/net10.0/System.Net.IPNetwork.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/System.Net.IPNetwork.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "PacketDotNet/1.4.8": {
         "type": "package",
         "compile": {
@@ -26,6 +39,32 @@
     }
   },
   "libraries": {
+    "IPNetwork2/4.3.0": {
+      "sha512": "OKePsHlxZx6TMy3tL5grQp39hJ2kujpXgotdz+jW8Zfw6UcAvsIWPV+3/ZoE7roo8F54BtXyOJsdUTseAf2grA==",
+      "type": "package",
+      "path": "ipnetwork2/4.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "DONATE.jpg",
+        "DONATE.md",
+        "LICENSE",
+        "README.md",
+        "ipnetwork.png",
+        "ipnetwork2.4.3.0.nupkg.sha512",
+        "ipnetwork2.nuspec",
+        "lib/net10.0/System.Net.IPNetwork.dll",
+        "lib/net10.0/System.Net.IPNetwork.xml",
+        "lib/net8.0/System.Net.IPNetwork.dll",
+        "lib/net8.0/System.Net.IPNetwork.xml",
+        "lib/net9.0/System.Net.IPNetwork.dll",
+        "lib/net9.0/System.Net.IPNetwork.xml",
+        "lib/netstandard2.0/System.Net.IPNetwork.dll",
+        "lib/netstandard2.0/System.Net.IPNetwork.xml",
+        "lib/netstandard2.1/System.Net.IPNetwork.dll",
+        "lib/netstandard2.1/System.Net.IPNetwork.xml"
+      ]
+    },
     "PacketDotNet/1.4.8": {
       "sha512": "j4C4QaJmaPCk0KXsIdsZqmBteKWj5znXBmfbPpu48rE5SW2xwXKVlRf7C3g7VM9aZqMHIQedApEuC71nNX5PaQ==",
       "type": "package",
@@ -56,6 +95,7 @@
   },
   "projectFileDependencyGroups": {
     "net10.0": [
+      "IPNetwork2 >= 4.3.0",
       "PacketDotNet >= 1.4.8",
       "SharpPcap >= 6.3.1"
     ]
@@ -103,6 +143,10 @@
       "net10.0": {
         "targetAlias": "net10.0",
         "dependencies": {
+          "IPNetwork2": {
+            "target": "Package",
+            "version": "[4.3.0, )"
+          },
           "PacketDotNet": {
             "target": "Package",
             "version": "[1.4.8, )"
