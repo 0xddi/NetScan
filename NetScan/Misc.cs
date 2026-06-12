@@ -33,4 +33,15 @@ public class Misc
         var network = IPNetwork2.Parse(ipWithMask);
         return network.ListIPAddress();
     }
+
+    public static CaptureDeviceList? GetCaptureDeviceList()
+    {
+        var devices = CaptureDeviceList.Instance;
+        if (devices.Count < 1)
+        {
+            Console.WriteLine("No devices were found on this machine");
+            return null;
+        }
+        return devices;
+    }
 }

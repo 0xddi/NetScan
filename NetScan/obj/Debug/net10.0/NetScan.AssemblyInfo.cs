@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NetScan")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f87aff180e4f7faf983bca7a79b145e155c3c0f8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c1650d7e7d305e539285f166f2bc6911602247d9")]
 [assembly: System.Reflection.AssemblyProductAttribute("NetScan")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NetScan")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

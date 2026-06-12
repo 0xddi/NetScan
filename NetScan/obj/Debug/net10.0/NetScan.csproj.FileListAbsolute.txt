@@ -17,3 +17,4 @@ C:\Users\Lenovo\RiderProjects\NetScan\NetScan\obj\Debug\net10.0\NetScan.pdb
 C:\Users\Lenovo\RiderProjects\NetScan\NetScan\obj\Debug\net10.0\NetScan.genruntimeconfig.cache
 C:\Users\Lenovo\RiderProjects\NetScan\NetScan\obj\Debug\net10.0\ref\NetScan.dll
 C:\Users\Lenovo\RiderProjects\NetScan\NetScan\obj\Debug\net10.0\NetScan.sourcelink.json
+C:\Users\Lenovo\RiderProjects\NetScan\NetScan\bin\Debug\net10.0\System.Net.IPNetwork.dll
