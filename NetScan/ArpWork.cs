@@ -31,13 +31,15 @@ public static class ArpWork
         return ethernetPacket;
     }
 
+    // Async static method for ARP scanning (resolving) particular collection of IPs.
+    // ARP requests are sent concurrently, then we wait ARP-answers for timeoutMs amount of time
     public static async Task<Dictionary<IPAddress, PhysicalAddress>> ArpResolveIPsAsync(
         IEnumerable<IPAddress> targetIps,
         PhysicalAddress localMac,
         IPAddress localIp, 
         LibPcapLiveDevice chosenDevice,
         CancellationToken token,
-        int timeoutMs = 1000,
+        int timeoutMs = 3000,
         IProgress<(int resolved, int total)> progress = null)
     {
         int totalCount = targetIps.Count();

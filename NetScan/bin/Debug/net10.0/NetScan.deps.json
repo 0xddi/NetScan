@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v10.0": {
       "NetScan/1.0.0": {
         "dependencies": {
+          "Hto3.NetworkHelpers": "1.0.7",
           "IPNetwork2": "4.3.0",
           "PacketDotNet": "1.4.8",
           "SharpPcap": "6.3.1",
@@ -15,6 +16,14 @@
         },
         "runtime": {
           "NetScan.dll": {}
+        }
+      },
+      "Hto3.NetworkHelpers/1.0.7": {
+        "runtime": {
+          "lib/net8.0/Hto3.NetworkHelpers.dll": {
+            "assemblyVersion": "1.0.7.0",
+            "fileVersion": "1.0.7.0"
+          }
         }
       },
       "IPNetwork2/4.3.0": {
@@ -70,6 +79,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Hto3.NetworkHelpers/1.0.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-es+JmAby8pc/jKxX1rHfTUiGKWy5NtHUGl0QX8xoi8KsAZjgAmOTlL+IQ45YuLhsXD+dF7fP8urjRPFhI0QTbQ==",
+      "path": "hto3.networkhelpers/1.0.7",
+      "hashPath": "hto3.networkhelpers.1.0.7.nupkg.sha512"
     },
     "IPNetwork2/4.3.0": {
       "type": "package",

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "5VNKVLl5ShA=",
+  "dgSpecHash": "N01sN3ZTDfc=",
   "success": true,
   "projectFilePath": "C:\\Users\\Lenovo\\RiderProjects\\NetScan\\NetScan\\NetScan.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Lenovo\\.nuget\\packages\\hto3.networkhelpers\\1.0.7\\hto3.networkhelpers.1.0.7.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\ipnetwork2\\4.3.0\\ipnetwork2.4.3.0.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\packetdotnet\\1.4.8\\packetdotnet.1.4.8.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\sharppcap\\6.3.1\\sharppcap.6.3.1.nupkg.sha512",

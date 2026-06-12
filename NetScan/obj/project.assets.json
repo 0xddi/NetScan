@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     "net10.0": {
+      "Hto3.NetworkHelpers/1.0.7": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Hto3.NetworkHelpers.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Hto3.NetworkHelpers.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "IPNetwork2/4.3.0": {
         "type": "package",
         "compile": {
@@ -68,6 +81,37 @@
     }
   },
   "libraries": {
+    "Hto3.NetworkHelpers/1.0.7": {
+      "sha512": "es+JmAby8pc/jKxX1rHfTUiGKWy5NtHUGl0QX8xoi8KsAZjgAmOTlL+IQ45YuLhsXD+dF7fP8urjRPFhI0QTbQ==",
+      "type": "package",
+      "path": "hto3.networkhelpers/1.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "hto3.networkhelpers.1.0.7.nupkg.sha512",
+        "hto3.networkhelpers.nuspec",
+        "lib/net461/Hto3.NetworkHelpers.dll",
+        "lib/net461/Hto3.NetworkHelpers.xml",
+        "lib/net47/Hto3.NetworkHelpers.dll",
+        "lib/net47/Hto3.NetworkHelpers.xml",
+        "lib/net48/Hto3.NetworkHelpers.dll",
+        "lib/net48/Hto3.NetworkHelpers.xml",
+        "lib/net5.0/Hto3.NetworkHelpers.dll",
+        "lib/net5.0/Hto3.NetworkHelpers.xml",
+        "lib/net6.0/Hto3.NetworkHelpers.dll",
+        "lib/net6.0/Hto3.NetworkHelpers.xml",
+        "lib/net7.0/Hto3.NetworkHelpers.dll",
+        "lib/net7.0/Hto3.NetworkHelpers.xml",
+        "lib/net8.0/Hto3.NetworkHelpers.dll",
+        "lib/net8.0/Hto3.NetworkHelpers.xml",
+        "lib/netstandard2.0/Hto3.NetworkHelpers.dll",
+        "lib/netstandard2.0/Hto3.NetworkHelpers.xml",
+        "lib/netstandard2.1/Hto3.NetworkHelpers.dll",
+        "lib/netstandard2.1/Hto3.NetworkHelpers.xml",
+        "nuget-logo.png"
+      ]
+    },
     "IPNetwork2/4.3.0": {
       "sha512": "OKePsHlxZx6TMy3tL5grQp39hJ2kujpXgotdz+jW8Zfw6UcAvsIWPV+3/ZoE7roo8F54BtXyOJsdUTseAf2grA==",
       "type": "package",
@@ -166,6 +210,7 @@
   },
   "projectFileDependencyGroups": {
     "net10.0": [
+      "Hto3.NetworkHelpers >= 1.0.7",
       "IPNetwork2 >= 4.3.0",
       "PacketDotNet >= 1.4.8",
       "SharpPcap >= 6.3.1",
@@ -215,6 +260,10 @@
       "net10.0": {
         "targetAlias": "net10.0",
         "dependencies": {
+          "Hto3.NetworkHelpers": {
+            "target": "Package",
+            "version": "[1.0.7, )"
+          },
           "IPNetwork2": {
             "target": "Package",
             "version": "[4.3.0, )"

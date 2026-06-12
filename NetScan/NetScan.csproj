@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Hto3.NetworkHelpers" Version="1.0.7" />
       <PackageReference Include="IPNetwork2" Version="4.3.0" />
       <PackageReference Include="PacketDotNet" Version="1.4.8" />
       <PackageReference Include="SharpPcap" Version="6.3.1" />

@@ -22,7 +22,7 @@ class Program
         var localMac = selectedDevice.MacAddress;
         var targetIPs = Misc.GetAllIPsFromSubnet(localIp);
         var cts = new CancellationTokenSource();
-        Console.CancelKeyPress += (sender, e) =>
+        Console.CancelKeyPress += (_, e) =>
         {
             Console.WriteLine("\n[!] Cancelling...");
             cts.Cancel();
@@ -48,5 +48,9 @@ class Program
         
         
         Output.PrintArpScanResults(results);
+
+        var result2 = await LanScan.HostFactory(results);
+        Output.PrintHostsTable(result2);
+        Console.WriteLine("[+] The program has successfully finished.");
     }
 }
