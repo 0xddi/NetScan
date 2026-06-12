@@ -34,9 +34,9 @@ public class Misc
         return network.ListIPAddress();
     }
 
-    public static CaptureDeviceList? GetCaptureDeviceList()
+    public static LibPcapLiveDeviceList? GetCaptureDeviceList()
     {
-        var devices = CaptureDeviceList.Instance;
+        var devices = LibPcapLiveDeviceList.Instance;
         if (devices.Count < 1)
         {
             Console.WriteLine("No devices were found on this machine");

@@ -3,7 +3,7 @@ namespace NetScan;
 
 class Program
 {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
         Output.PrintLibraryVersion();
 
@@ -16,5 +16,39 @@ class Program
         
         var selectedDevice = devices[selectedDeviceIndex - 1];
         Console.WriteLine($"\n[+] Selected {selectedDevice.Description} with IPv4 address {Misc.GetIPv4AddressFromDevice(selectedDevice)}");
+        
+        
+        var localIp = Misc.GetIPv4AddressFromDevice(selectedDevice);
+        if (localIp == null) return; // error handling needed
+        var localMac = selectedDevice.MacAddress;
+        var targetIPs = Misc.GetAllIPsFromSubnet(localIp);
+        var cts = new CancellationTokenSource();
+        Console.CancelKeyPress += (sender, e) =>
+        {
+            Console.WriteLine("\n[!] Cancelling...");
+            cts.Cancel();
+            e.Cancel = true;
+        };
+        
+        var progress = new Progress<(int resolved, int total)>(p =>
+        {
+            Console.Write($"\r[+] Scanning: {p.resolved}/{p.total} hosts found...");
+        }); 
+        
+        var results = await ArpWork.ArpResolveIPsAsync(
+            targetIPs,
+            localMac,
+            localIp,
+            selectedDevice,
+            cts.Token,
+            timeoutMs: 30000,
+            progress: progress
+            // Ждем ответы 3 секунды
+        );
+        
+
+        
+        
+        Output.PrintArpScanResults(results);
     }
 }
