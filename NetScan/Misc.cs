@@ -6,6 +6,7 @@ namespace NetScan;
 
 public class Misc
 {
+    // Static method for getting IPv4 address of particular device from SharpPCAP
     public static System.Net.IPAddress? GetIPv4AddressFromDevice(ILiveDevice dev)
     {
         if (dev is LibPcapLiveDevice liveDevice && liveDevice.Addresses != null)
@@ -23,6 +24,9 @@ public class Misc
         return null; 
     }
     
+    // Static method for getting collection of IP addresses from the same network
+    // based on one IP-address. Here we believe that mask is always /24. 
+    // Poor implementation for now, but it is what it is
     public static IEnumerable<IPAddress> GetAllIPsFromSubnet(IPAddress ip)
     {
         string ipWithMask = $"{ip}/24";

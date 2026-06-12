@@ -2,6 +2,7 @@
 
 public static class Input
 {
+    // Static method for asking user about needed interface/device
     public static int SelectDevice(int deviceCount)
     {
         int selectedIndex = 0;
