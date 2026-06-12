@@ -18,3 +18,5 @@ C:\Users\Lenovo\RiderProjects\NetScan\NetScan\obj\Debug\net10.0\NetScan.genrunti
 C:\Users\Lenovo\RiderProjects\NetScan\NetScan\obj\Debug\net10.0\ref\NetScan.dll
 C:\Users\Lenovo\RiderProjects\NetScan\NetScan\obj\Debug\net10.0\NetScan.sourcelink.json
 C:\Users\Lenovo\RiderProjects\NetScan\NetScan\bin\Debug\net10.0\System.Net.IPNetwork.dll
+C:\Users\Lenovo\RiderProjects\NetScan\NetScan\bin\Debug\net10.0\Spectre.Console.dll
+C:\Users\Lenovo\RiderProjects\NetScan\NetScan\bin\Debug\net10.0\Spectre.Console.Ansi.dll

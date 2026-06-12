@@ -1,5 +1,4 @@
-﻿using SharpPcap;
-namespace NetScan;
+﻿namespace NetScan;
 
 class Program
 {
@@ -41,9 +40,8 @@ class Program
             localIp,
             selectedDevice,
             cts.Token,
-            timeoutMs: 30000,
+            timeoutMs: 3000,
             progress: progress
-            // Ждем ответы 3 секунды
         );
         
 

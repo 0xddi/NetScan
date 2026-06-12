@@ -2,6 +2,7 @@
 using System.Net.NetworkInformation;
 using SharpPcap;
 using SharpPcap.LibPcap;
+using Spectre.Console;
 
 namespace NetScan;
 
@@ -9,15 +10,21 @@ public static class Output
 {
     public static void PrintDeviceList(LibPcapLiveDeviceList deviceList)
     {
-        Console.WriteLine("\nThe following devices are available on this machine:");
-        Console.WriteLine("----------------------------------------------------\n");
-        int i = 1;
-        var devAmount = deviceList.Count;
+        
+        var table = new Table();
+        table.Title = new TableTitle("[blue]List of available devices[/]");
+        table.AddColumn("ID");
+        table.AddColumn("Device Name", config => config.Centered());
+        
+        int id = 1;
         foreach (var dev in deviceList)
         {
-            Console.WriteLine($"{i}. {dev.Description}");
-            i++;
+            table.AddRow(id.ToString(), dev.Description);
+            id++;
         }
+        
+        Console.WriteLine();
+        AnsiConsole.Write(table);
     }
 
     public static void PrintLibraryVersion()
@@ -28,10 +35,22 @@ public static class Output
 
     public static void PrintArpScanResults(Dictionary<IPAddress, PhysicalAddress> scanResults)
     {
-        Console.WriteLine("\n=====ARP-scan results=====");
+        var resultsCount = scanResults.Count;
+        var table = new Table();
+        table.Title = new TableTitle("[blue]ARP-scan results[/]");
+        table.AddColumn("ID");
+        table.AddColumn("IPv4", config => config.Centered());
+        table.AddColumn("MAC address", config => config.Centered());
+        
+        
+        int id = 1;
         foreach (var (ip, mac) in scanResults)
         {
-            Console.WriteLine($"{ip} -> {mac}");
+            table.AddRow(id.ToString(), ip.ToString(), mac.ToString());
+            id++;
         }
+        
+        Console.WriteLine();
+        AnsiConsole.Write(table);
     }
 }
