@@ -28,6 +28,8 @@ public static class LanScan
             // This method from NetworkHelpers library returns string vendor name of 
             // device network card based on MAC address.
             // Returns null if didn't managed to find anything
+            // It works by comparing MAC-addresses to addr-s from
+            // pre-made oui.txt file with vendor names
             host.VendorName =
                 NetworkHelpers.GetNetworkInterfaceVendorNameByMACAddress(mac.ToStringDashFormatting());
             if (host.VendorName == null) host.VendorName = "-";

@@ -32,7 +32,8 @@ public static class ArpWork
     }
 
     // Async static method for ARP scanning (resolving) particular collection of IPs.
-    // ARP requests are sent concurrently, then we wait ARP-answers for timeoutMs amount of time
+    // ARP requests are sent synchronously (before it was concurrent with Task.Run() but it caused some problems),
+    // then we wait ARP-answers for timeoutMs amount of time
     public static async Task<Dictionary<IPAddress, PhysicalAddress>> ArpResolveIPsAsync(
         IEnumerable<IPAddress> targetIps,
         PhysicalAddress localMac,
@@ -62,66 +63,60 @@ public static class ArpWork
         // Local function for intercepting ARP answers and writing them to the collections
         void OnPacketArrival(object sender, PacketCapture e)
         {
-        var packet = Packet.ParsePacket(e.GetPacket().LinkLayerType, e.GetPacket().Data);
-        
-        // Extracting ARP-packet
-        var arpPacket = packet.Extract<ArpPacket>();
-        if (arpPacket == null) return;
-        
-        // Filtering ARP responses
-        if (arpPacket.Operation != ArpOperation.Response) return;
-        
-        // Checking if IP is from pending IPs collection and not a random packet
-        var senderIp = arpPacket.SenderProtocolAddress;
-        if (pendingIPs.ContainsKey(senderIp))
-            {
-            results.TryAdd(senderIp, arpPacket.SenderHardwareAddress);
+            var packet = Packet.ParsePacket(e.GetPacket().LinkLayerType, e.GetPacket().Data);
             
-            pendingIPs.TryRemove(senderIp, out _);
-            progress?.Report((results.Count, totalCount)); // used to keep track of number of resolved IPs
+            // Extracting ARP-packet
+            var arpPacket = packet.Extract<ArpPacket>();
+            if (arpPacket == null) return;
+            
+            // Filtering ARP responses
+            if (arpPacket.Operation != ArpOperation.Response) return;
+            
+            // Checking if IP is from pending IPs collection and not a random packet
+            var senderIp = arpPacket.SenderProtocolAddress;
+            if (pendingIPs.ContainsKey(senderIp))
+            {
+                results.TryAdd(senderIp, arpPacket.SenderHardwareAddress);
+                
+                pendingIPs.TryRemove(senderIp, out _);
+                progress?.Report((results.Count, totalCount)); // used to keep track of number of resolved IPs
             }
         }
-    
-    // Открываем устройство для захвата
-    chosenDevice.Open(DeviceModes.Promiscuous, 1000);
-    chosenDevice.Filter = "arp"; 
-    
-    // Запускаем захват в фоновом режиме
-    chosenDevice.OnPacketArrival += OnPacketArrival;
-    chosenDevice.StartCapture();
-    
-    try
-    {
-        // Отправляем ARP-запросы ко всем целевым IP
-        var sendTasks = new List<Task>();
         
-        foreach (var targetIp in targetIps)
-        {
-            if (token.IsCancellationRequested) break;
-            
-            var arpRequest = BuildArpRequest(targetIp, localMac, localIp);
-            
-            sendTasks.Add(Task.Run(() => chosenDevice.SendPacket(arpRequest), token));
-            
-            // 10 ms delay, is used not to overflood network with requests
-            await Task.Delay(10, token);
-        }
-        await Task.WhenAll(sendTasks).WaitAsync(token);
+        chosenDevice.Open(DeviceModes.Promiscuous, 1000);
+        chosenDevice.Filter = "arp"; 
         
-        // Waiting for ARP-answers
-        var deadline = DateTime.UtcNow.AddMilliseconds(timeoutMs);
-        while (pendingIPs.Count > 0 && DateTime.UtcNow < deadline && !token.IsCancellationRequested)
-        {
-            await Task.Delay(50, token);
-        }
-    }
-    finally
-    {
-        chosenDevice.StopCapture();
-        chosenDevice.Close();
-        chosenDevice.OnPacketArrival -= OnPacketArrival;
-    }
+        chosenDevice.OnPacketArrival += OnPacketArrival;
+        chosenDevice.StartCapture();
     
-    return new Dictionary<IPAddress, PhysicalAddress>(results);
-}
+        try
+        {
+            foreach (var targetIp in targetIps)
+            {
+                if (token.IsCancellationRequested) break;
+                
+                var arpRequest = BuildArpRequest(targetIp, localMac, localIp);
+                
+                chosenDevice.SendPacket(arpRequest);
+                
+                // 10 ms delay, is used not to overflood network with requests
+                await Task.Delay(10, token);
+            }
+            
+            // Waiting for ARP-answers
+            var deadline = DateTime.UtcNow.AddMilliseconds(timeoutMs);
+            while (pendingIPs.Count > 0 && DateTime.UtcNow < deadline && !token.IsCancellationRequested)
+            {
+                await Task.Delay(50, token);
+            }
+        }
+        finally
+        {
+            chosenDevice.StopCapture();
+            chosenDevice.Close();
+            chosenDevice.OnPacketArrival -= OnPacketArrival;
+        }
+        
+        return new Dictionary<IPAddress, PhysicalAddress>(results);
+    }
 }

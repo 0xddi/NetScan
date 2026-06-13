@@ -18,7 +18,11 @@ class Program
         
         
         var localIp = Misc.GetIPv4AddressFromDevice(selectedDevice);
-        if (localIp == null) return; // error handling needed
+        if (localIp == null) {
+            Console.WriteLine("\n[!] Couldn't get IPv4 address from device");
+            return; 
+        }
+        
         var localMac = selectedDevice.MacAddress;
         var targetIPs = Misc.GetAllIPsFromSubnet(localIp);
         var cts = new CancellationTokenSource();
@@ -34,23 +38,27 @@ class Program
             Console.Write($"\r[+] Scanning: {p.resolved}/{p.total} hosts found...");
         }); 
         
-        var results = await ArpWork.ArpResolveIPsAsync(
-            targetIPs,
-            localMac,
-            localIp,
-            selectedDevice,
-            cts.Token,
-            timeoutMs: 3000,
-            progress: progress
-        );
+        try
+        {
+            var results = await ArpWork.ArpResolveIPsAsync(
+                targetIPs,
+                localMac,
+                localIp,
+                selectedDevice,
+                cts.Token,
+                timeoutMs: 3000,
+                progress: progress
+            );
         
+            Output.PrintArpScanResults(results);
 
-        
-        
-        Output.PrintArpScanResults(results);
-
-        var result2 = await LanScan.HostFactory(results);
-        Output.PrintHostsTable(result2);
-        Console.WriteLine("[+] The program has successfully finished.");
+            var result2 = await LanScan.HostFactory(results);
+            Output.PrintHostsTable(result2);
+            Console.WriteLine("[+] The program has successfully finished.");
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine("\n[!] ARP-scan was cancelled by user");
+        }
     }
 }
