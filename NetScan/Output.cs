@@ -11,7 +11,7 @@ public static class Output
     public static void PrintDeviceList(LibPcapLiveDeviceList deviceList)
     {
         
-        var table = new Table();
+        var table = new Table().ShowRowSeparators();
         table.Title = new TableTitle("[blue]List of available devices[/]");
         table.AddColumn("ID");
         table.AddColumn("Device Name", config => config.Centered());
@@ -35,7 +35,7 @@ public static class Output
 
     public static void PrintArpScanResults(Dictionary<IPAddress, PhysicalAddress> scanResults)
     {
-        var table = new Table();
+        var table = new Table().ShowRowSeparators();
         table.Title = new TableTitle("[blue]ARP-scan results[/]");
         table.AddColumn("ID");
         table.AddColumn("IPv4", config => config.Centered());
@@ -55,7 +55,7 @@ public static class Output
 
     public static void PrintHostsTable(List<Host> hosts)
     {
-        var table = new Table();
+        var table = new Table().ShowRowSeparators();
         table.Title = new TableTitle("[blue]Final Hosts table[/]");
         table.AddColumn("ID");
         table.AddColumn("HostName", config => config.Centered());
@@ -67,7 +67,7 @@ public static class Output
         foreach (var host in hosts)
         {
             table.AddRow(id.ToString(), host.HostName, host.VendorName, 
-                        host.IpAddress.ToString(), host.MacAddress.ToString());
+                        host.IpAddress.ToString(), host.MacAddress.ToStringColonFormatting());
             id++;
         }
         
